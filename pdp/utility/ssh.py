@@ -25,6 +25,10 @@ class SSH:
         if not self.ssh_client is None:
             self.ssh_client.close()
 
-    def copy_file(self, remote_file, local_dir=''):
+    def pull_file(self, remote_file, local_dir=''):
         with scp.SCPClient(self.ssh_client.get_transport()) as scp_client:
             scp_client.get(remote_file, local_dir)
+
+    def push_file(self, local_file, remote_file):
+        with scp.SCPClient(self.ssh_client.get_transport()) as scp_client:
+            scp_client.put(local_file, remote_file)

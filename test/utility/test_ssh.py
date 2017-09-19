@@ -25,7 +25,7 @@ class TestSSH(TestCase):
         from pdp.utility.ssh import SSH
         ssh = SSH(self.test_user, self.test_host)
         ssh.connect()
-        ssh.copy_file(self.test_remote_file, '/tmp/')
+        ssh.pull_file(self.test_remote_file, '/tmp/')
         ssh.disconnect()
         # verify file was copied
         from pdp.utility.file import File
