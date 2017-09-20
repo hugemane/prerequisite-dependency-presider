@@ -1,4 +1,3 @@
-from pdp.utility.file import File
 from pdp.utility.ssh import SSH
 
 
@@ -22,20 +21,21 @@ class JvmRunScriptPrerequisite:
         self.deploy_ssh.disconnect()
 
     def is_jvm_run_script_deployed(self):
-        # todo: use self.deploy_ssh to execute command to obtain file
-        return False
+        print('checking if jvm run script is deployed...')
+        return self.deploy_ssh.does_file_exist(self.deploy_run_script)
 
     def deploy_jvm_run_script(self):
-        pulled_file = self.artifact_host.get_artifact(self.artifact_run_script)
+        print('deploying jvm run script!!!!')
 
-        pf = File(pulled_file)
-        pulled_file_contents = pf.read()
+        pulled_file_contents = self.artifact_host.get_artifact_file_content(self.artifact_run_script)
 
         # replace the file contents
         # todo: where to get the values?
         replaced_file_contents = pulled_file_contents
 
-        pf.write(replaced_file_contents)
+        #todo: push the file contents -> remote server
+
+        #pf.write(replaced_file_contents)
 
         # deploy the updated file to host
-        self.deploy_ssh.push_file(pulled_file, self.deploy_run_script)
+        #self.deploy_ssh.push_file(pulled_file, self.deploy_run_script)

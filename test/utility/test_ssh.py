@@ -1,12 +1,19 @@
 import unittest
-from unittest import TestCase
+
+"""
+this is test should be done manually
+replace these variables:
+    test_user = '--your-remote-username--'
+    test_host = '--your-remote-host--'
+    test_remote_file = '--your-remote-file--'
+"""
 
 
 @unittest.skip('configure user, host and remote file to test')
-class TestSSH(TestCase):
-    test_user = '--your-user--'
-    test_host = '--your-host--'
-    test_remote_file = '--your-remote-file--'
+class TestSSH(unittest.TestCase):
+    test_user = 'artifact'
+    test_host = 'artifact.lxd'
+    test_remote_file = '~/repo/script/jvm-run-script.sh'
 
     def test_connect(self):
         from pdp.utility.ssh import SSH
@@ -15,13 +22,35 @@ class TestSSH(TestCase):
         self.assertTrue(ssh.is_connected())
         ssh.disconnect()
 
+    def test_connect_raise_exception_when_host_keys_not_configured(self):
+        from pdp.utility.ssh import SSH, SSHConnectException
+        ssh = SSH('unknown-user', self.test_host)
+        with self.assertRaises(SSHConnectException):
+            ssh.connect()
+
     def test_disconnect_should_not_fail_when_not_connected(self):
         from pdp.utility.ssh import SSH
         ssh = SSH(self.test_user, self.test_host)
         self.assertFalse(ssh.is_connected())
         ssh.disconnect()
 
-    def test_copy_file(self):
+    def test_does_file_exist(self):
+        from pdp.utility.ssh import SSH
+        ssh = SSH(self.test_user, self.test_host)
+        ssh.connect()
+        file_exists = ssh.does_file_exist(self.test_remote_file)
+        ssh.disconnect()
+        self.assertTrue(file_exists)
+
+    def test_does_file_exist_not(self):
+        from pdp.utility.ssh import SSH
+        ssh = SSH(self.test_user, self.test_host)
+        ssh.connect()
+        file_exists = ssh.does_file_exist(self.test_remote_file + '.not-found')
+        ssh.disconnect()
+        self.assertFalse(file_exists)
+
+    def test_pull_file(self):
         from pdp.utility.ssh import SSH
         ssh = SSH(self.test_user, self.test_host)
         ssh.connect()
@@ -32,4 +61,12 @@ class TestSSH(TestCase):
         local_copied_file = '/tmp/' + self.test_remote_file.split('/')[-1]
         file = File(local_copied_file)
         self.assertTrue(file.exists())
+
+    def test_pull_file_contents(self):
+        from pdp.utility.ssh import SSH
+        ssh = SSH(self.test_user, self.test_host)
+        ssh.connect()
+        file_content = ssh.pull_file_contents(self.test_remote_file)
+        ssh.disconnect()
+        self.assertGreater(len(file_content), 1)
 
