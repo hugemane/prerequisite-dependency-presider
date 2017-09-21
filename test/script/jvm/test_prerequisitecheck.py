@@ -7,7 +7,6 @@ this is test should be done manually
 """
 
 
-@unittest.skip('configure user, host and remote file to test')
 class TestJvmRunScriptPrerequisite(unittest.TestCase):
     def test_check_should_deploy_jvm_run_script(self):
         from pdp.script.jvm.prerequisitecheck import JvmRunScriptPrerequisite

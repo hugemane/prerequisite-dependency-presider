@@ -3,16 +3,7 @@ import unittest
 from pdp.utility.file import File
 from pdp.utility.ssh import SSH, SSHConnectException
 
-"""
-this is test should be done manually
-replace these variables:
-    test_user = '--your-remote-username--'
-    test_host = '--your-remote-host--'
-    test_remote_file = '--your-remote-file--'
-"""
 
-
-#@unittest.skip('configure user, host and remote file to test')
 class TestSSH(unittest.TestCase):
     test_user = 'artifact'
     test_host = 'artifact.lxd'
