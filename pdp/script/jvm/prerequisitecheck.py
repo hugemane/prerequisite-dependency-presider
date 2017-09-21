@@ -1,15 +1,16 @@
+from pdp.utility.filetemplate import FileTemplate
 from pdp.utility.ssh import SSH
 
 
 class JvmRunScriptPrerequisite:
     deploy_ssh = None
 
-    def __init__(self, user, host, deploy_run_script, artifact_host, artifact_run_script):
+    def __init__(self, user, host, deploy_run_script, artifact_host, options):
         self.user = user
         self.host = host
         self.deploy_run_script = deploy_run_script
         self.artifact_host = artifact_host
-        self.artifact_run_script = artifact_run_script
+        self.options = options
 
     def check(self):
         self.deploy_ssh = SSH(self.user, self.host)
@@ -21,17 +22,20 @@ class JvmRunScriptPrerequisite:
         self.deploy_ssh.disconnect()
 
     def is_jvm_run_script_deployed(self):
-        print('checking if jvm run script is deployed...')
         return self.deploy_ssh.does_file_exist(self.deploy_run_script)
 
     def deploy_jvm_run_script(self):
-        print('deploying jvm run script!!!!')
+        pulled_file_contents = self.artifact_host.get_artifact_file_content(self.options['artifact_jvm_script'])
 
-        pulled_file_contents = self.artifact_host.get_artifact_file_content(self.artifact_run_script)
+        script_template = FileTemplate(pulled_file_contents)
+        script_template.replace_with_values('service_name', self.options)
+        script_template.replace_with_values('java_home', self.options)
+        script_template.replace_with_values('jvm_max_memory', self.options)
+        script_template.replace_with_values('java_main_class', self.options)
 
-        # replace the file contents
-        # todo: where to get the values?
-        replaced_file_contents = pulled_file_contents
+        jvm_script_content = script_template.contents()
+
+        print('pushing (a)' + jvm_script_content)
 
         #todo: push the file contents -> remote server
 

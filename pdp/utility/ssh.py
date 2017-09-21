@@ -49,7 +49,7 @@ class SSH:
             scp_client.put(local_file, remote_file)
 
     def push_file_contents(self, remote_file, file_lines):
-        return False
+        return None
         # todo: implement
         # paramiko.SFTPClient.from_transport(self.ssh_client.get_transport())
 
