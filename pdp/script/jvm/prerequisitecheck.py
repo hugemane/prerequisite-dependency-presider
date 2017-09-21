@@ -35,11 +35,4 @@ class JvmRunScriptPrerequisite:
 
         jvm_script_content = script_template.contents()
 
-        print('pushing (a)' + jvm_script_content)
-
-        #todo: push the file contents -> remote server
-
-        #pf.write(replaced_file_contents)
-
-        # deploy the updated file to host
-        #self.deploy_ssh.push_file(pulled_file, self.deploy_run_script)
+        self.deploy_ssh.push_file_contents(self.deploy_run_script, jvm_script_content)

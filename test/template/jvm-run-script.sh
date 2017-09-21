@@ -1,18 +1,12 @@
 #!/bin/bash
 # run script for service
-#
-# following variables need to be set:
-# - <service_name>
-# - <java_home>
-# - <jvm_max_memory>
-# - <java_main_class>
 
 . /lib/lsb/init-functions
 
-SERVICE_NAME="<service_name>"
-JVM_JAVA_HOME=<java_home>
-JVM_MAX_MEMORY=<jvm_max_memory>
-JVM_MAIN_CLASS="<java_main_class>"
+SERVICE_NAME="$service_name"
+JVM_JAVA_HOME=$java_home
+JVM_MAX_MEMORY=$jvm_max_memory
+JVM_MAIN_CLASS="$java_main_class"
 
 
 JAVA_BIN=$JVM_JAVA_HOME/bin/java

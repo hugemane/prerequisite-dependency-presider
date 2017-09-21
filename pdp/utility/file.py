@@ -14,7 +14,7 @@ class File:
         return os.path.isfile(self.file_path)
 
     def read(self):
-        with open(self.file_path, 'r') as content_file:
+        with open(self.file_path, 'r', encoding='utf-8') as content_file:
             return content_file.read()
 
     def write(self, file_content):

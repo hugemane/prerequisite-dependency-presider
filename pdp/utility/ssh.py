@@ -1,5 +1,9 @@
+import os
 import paramiko
 import scp
+import time
+
+from pdp.utility.file import File
 
 
 class SSH:
@@ -45,13 +49,24 @@ class SSH:
         return ''.join(stdout.readlines())
 
     def push_file(self, local_file, remote_file):
+        if '/' in remote_file:
+            remote_dir = remote_file[:remote_file.rindex('/')+1]
+            self.ssh_client.exec_command('mkdir -p ' + remote_dir, get_pty=True)
+
         with scp.SCPClient(self.ssh_client.get_transport()) as scp_client:
             scp_client.put(local_file, remote_file)
 
-    def push_file_contents(self, remote_file, file_lines):
-        return None
-        # todo: implement
-        # paramiko.SFTPClient.from_transport(self.ssh_client.get_transport())
+    def push_file_contents(self, remote_file, file_content):
+        # files are too large, use tmp file
+        temp_file_path = self.__create_temp_file(file_content)
+        self.push_file(temp_file_path, remote_file)
+        os.remove(temp_file_path)
+
+    def __create_temp_file(self, file_content):
+        file_name = '/tmp/ssh_tmp_file' + time.strftime("%Y%m%d-%H%M%S")
+        file = File(file_name)
+        file.write(file_content)
+        return file_name
 
 
 class SSHConnectException(Exception):
