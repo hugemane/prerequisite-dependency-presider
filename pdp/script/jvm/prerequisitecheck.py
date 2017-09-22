@@ -12,6 +12,10 @@ class JvmRunScriptPrerequisite:
         self.artifact_host = artifact_host
         self.options = options
 
+        if None in (user, host, deploy_run_script, artifact_host, options):
+            print('jvm run script prerequisite error - missing args')
+            raise JvmRunScriptPrerequisiteException()
+
     def check(self):
         self.deploy_ssh = SSH(self.user, self.host)
         self.deploy_ssh.connect()
@@ -36,3 +40,7 @@ class JvmRunScriptPrerequisite:
         jvm_script_content = script_template.contents()
 
         self.deploy_ssh.push_file_contents(self.deploy_run_script, jvm_script_content, make_executable=True)
+
+
+class JvmRunScriptPrerequisiteException(Exception):
+    pass
