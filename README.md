@@ -26,5 +26,5 @@ When these are not, PDP will halt service starting until these are available.
 ## Local install (without PiPy)
 ```
 tar --exclude='*.iml' --exclude='./.idea' --exclude='./.git' --exclude='./.gitignore' --exclude='./test' -cvzf /tmp/pdp-0.0.1.tar.gz .
-sudo pip3 install /tmp/pdp.tar
+sudo pip3 install /tmp/pdp-0.0.1.tar.gz
 ```
