@@ -48,7 +48,7 @@ class SSH:
         stdin, stdout, stderr = self.ssh_client.exec_command('cat ' + remote_file, get_pty=True)
         return ''.join(stdout.readlines())
 
-    def push_file(self, local_file, remote_file):
+    def push_file(self, local_file, remote_file, make_executable=False):
         if '/' in remote_file:
             remote_dir = remote_file[:remote_file.rindex('/')+1]
             self.ssh_client.exec_command('mkdir -p ' + remote_dir, get_pty=True)
@@ -56,10 +56,13 @@ class SSH:
         with scp.SCPClient(self.ssh_client.get_transport()) as scp_client:
             scp_client.put(local_file, remote_file)
 
-    def push_file_contents(self, remote_file, file_content):
+        if make_executable is True:
+            self.ssh_client.exec_command('chmod +x ' + remote_file, get_pty=True)
+
+    def push_file_contents(self, remote_file, file_content, make_executable=False):
         # files are too large, use tmp file
         temp_file_path = self.__create_temp_file(file_content)
-        self.push_file(temp_file_path, remote_file)
+        self.push_file(temp_file_path, remote_file, make_executable)
         os.remove(temp_file_path)
 
     def __create_temp_file(self, file_content):

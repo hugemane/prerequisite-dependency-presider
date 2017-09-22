@@ -35,4 +35,4 @@ class JvmRunScriptPrerequisite:
 
         jvm_script_content = script_template.contents()
 
-        self.deploy_ssh.push_file_contents(self.deploy_run_script, jvm_script_content)
+        self.deploy_ssh.push_file_contents(self.deploy_run_script, jvm_script_content, make_executable=True)
