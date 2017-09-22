@@ -11,6 +11,10 @@ setup(
     classifiers = [],
     entry_points = {
         'console_scripts':
-            ['jvm-run-script-prerequisite=pdp.cli.api:jvm_run_script_prerequisite_check'],
+            [
+                'pdp-args=pdp.cli.api:get_api_args',
+                'jvm-run-script-prerequisite=pdp.cli.api:jvm_run_script_prerequisite_check'
+
+            ],
     }, requires=['paramiko', 'scp']
 )
