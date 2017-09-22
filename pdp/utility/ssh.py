@@ -10,10 +10,11 @@ class SSH:
     ssh_client = None
     connected = False
 
-    def __init__(self, user, host, port=22):
+    def __init__(self, user, host, key_file=None, port=22):
         self.user = user
         self.host = host
         self.port = port
+        self.key_file = key_file
 
     def is_connected(self):
         return self.connected
@@ -24,7 +25,10 @@ class SSH:
         self.ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         try:
-            self.ssh_client.connect(self.host, username=self.user)
+            if self.key_file is None:
+                self.ssh_client.connect(self.host, username=self.user)
+            else:
+                self.ssh_client.connect(self.host, username=self.user, key_filename=self.key_file)
         except paramiko.SSHException as e:
             print('SSH Connect Error - configure your SSH key for: ' + self.user + '@' + self.host)
             raise SSHConnectException(e)

@@ -3,9 +3,11 @@ import sys
 
 
 class TestFile(TestCase):
+
     def test_api_jvmrunscript_args(self):
         import pdp.cli.api as api
-        sys.argv[1:] = ['-dh', 'some.host.com',
+        sys.argv[1:] = ['-pk', '/home/hugemane/.ssh/test_nopass_rsa',
+                        '-dh', 'some.host.com',
                         '-du', 'ubuntu',
                         '-djrs', '/var/service/service-run.sh',
                         '-ah', 'archive.com',
@@ -18,6 +20,7 @@ class TestFile(TestCase):
 
         options = api.get_api_args()
 
+        self.assertEqual(options.private_key_file, '/home/hugemane/.ssh/test_nopass_rsa')
         self.assertEqual(options.deploy_host, 'some.host.com')
         self.assertEqual(options.deploy_host_user, 'ubuntu')
         self.assertEqual(options.deploy_jvm_run_script, '/var/service/service-run.sh')
@@ -41,6 +44,7 @@ class TestFile(TestCase):
         api.get_api_args()
 
         expected = 'DEPLOYMENT HOST OPTIONS\n' \
+                   'private_key_file: !! NOT SET !!\n' \
                    'deploy_host: some.host.com\n' \
                    'deploy_host_user: ubuntu\n' \
                    'deploy_jvm_run_script: !! NOT SET !!\n' \

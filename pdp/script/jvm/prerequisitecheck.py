@@ -5,9 +5,10 @@ from pdp.utility.ssh import SSH
 class JvmRunScriptPrerequisite:
     deploy_ssh = None
 
-    def __init__(self, user, host, deploy_run_script, artifact_host, options):
+    def __init__(self, user, host, pkey_file, deploy_run_script, artifact_host, options):
         self.user = user
         self.host = host
+        self.pkey_file = pkey_file
         self.deploy_run_script = deploy_run_script
         self.artifact_host = artifact_host
         self.options = options
@@ -17,7 +18,7 @@ class JvmRunScriptPrerequisite:
             raise JvmRunScriptPrerequisiteException()
 
     def check(self):
-        self.deploy_ssh = SSH(self.user, self.host)
+        self.deploy_ssh = SSH(self.user, self.host, key_file=self.pkey_file)
         self.deploy_ssh.connect()
 
         if self.is_jvm_run_script_deployed() is False:

@@ -7,10 +7,11 @@ from pdp.utility.ssh import SSH, SSHConnectException
 class TestSSH(unittest.TestCase):
     test_user = 'artifact'
     test_host = 'artifact.lxd'
+    test_private_key_file = '/home/hugemane/.ssh/test_nopass_rsa'
     test_remote_file = '~/repo/script/jvm-run-script.sh'
 
     def test_connect(self):
-        ssh = SSH(self.test_user, self.test_host)
+        ssh = SSH(self.test_user, self.test_host, self.test_private_key_file)
         ssh.connect()
         self.assertTrue(ssh.is_connected())
         ssh.disconnect()

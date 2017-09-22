@@ -9,6 +9,7 @@ def get_api_args(argv=None):
 
     parser.add_argument('-d', '--debug', dest='debug', help='debug to help diagnose issues')
 
+    parser.add_argument('-pk', '--private-key-file', dest='private_key_file', help='private key file for host connect')
     parser.add_argument('-dh', '--deploy-host', dest='deploy_host', help='deploy host')
     parser.add_argument('-du', '--deploy-host-user', dest='deploy_host_user', help='deploy host user')
     parser.add_argument('-djrs', '--deploy-jvm-run-script', dest='deploy_jvm_run_script', help='deploy jvm run script')
@@ -33,7 +34,7 @@ def get_api_args(argv=None):
 def jvm_run_script_prerequisite_check():
     args = get_api_args()
 
-    artifact_repo = ArtifactHost(args.artifact_host_user, args.artifact_host)
+    artifact_repo = ArtifactHost(args.artifact_host_user, args.artifact_host, args.private_key_file)
 
     jvm_script_options = {
         'artifact_jvm_script': args.jvm_run_script,
@@ -43,7 +44,7 @@ def jvm_run_script_prerequisite_check():
         'java_main_class': args.jvm_main_class
     }
 
-    prerequisite = JvmRunScriptPrerequisite(args.deploy_host_user, args.deploy_host,
+    prerequisite = JvmRunScriptPrerequisite(args.deploy_host_user, args.deploy_host, args.private_key_file,
                                             args.deploy_jvm_run_script,
                                             artifact_repo,
                                             jvm_script_options)
@@ -52,6 +53,7 @@ def jvm_run_script_prerequisite_check():
 
 def __debug_api_args(args):
     print('DEPLOYMENT HOST OPTIONS')
+    print('private_key_file: ' + __debug_option(args.private_key_file))
     print('deploy_host: ' + __debug_option(args.deploy_host))
     print('deploy_host_user: ' + __debug_option(args.deploy_host_user))
     print('deploy_jvm_run_script: ' + __debug_option(args.deploy_jvm_run_script))
