@@ -5,12 +5,12 @@ class TestFile(TestCase):
 
     def test_exists(self):
         from pdp.utility.file import File
-        file = File('../template/jvm-run-script.sh')
+        file = File('../test-resources/jvm-run-script.sh')
         self.assertTrue(file.exists())
 
     def test_read(self):
         from pdp.utility.file import File
-        file = File('../template/jvm-run-script.sh')
+        file = File('../test-resources/jvm-run-script.sh')
         file_content = file.read()
         self.assertTrue("exit 0" in file_content)
 

@@ -9,6 +9,7 @@ this is test and should be run manually
 
 
 class TestJdkPrerequisite(unittest.TestCase):
+
     def test_check_should_raise_exception_when_some_args_missing(self):
         with self.assertRaises(JdkPrerequisiteException):
             prerequisite = JdkPrerequisite('user', 'host', None, None, None)

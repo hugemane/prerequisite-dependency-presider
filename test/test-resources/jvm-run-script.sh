@@ -7,16 +7,17 @@ SERVICE_NAME="$service_name"
 JVM_JAVA_HOME=$java_home
 JVM_MAX_MEMORY=$jvm_max_memory
 JVM_MAIN_CLASS="$java_main_class"
+JVM_SERVICE_JAR="$jvm_service_jar"
 
 
 JAVA_BIN=$JVM_JAVA_HOME/bin/java
 
 JVM_OPTS="-Xms128m -Xmx$JVM_MAX_MEMORY -XX:+UseConcMarkSweepGC -server"
 
-LOG_PATH="../log"
+LOG_PATH="log"
 LOG_FILE="$LOG_PATH/$SERVICE_NAME.log"
 
-PID_PATH="../pid"
+PID_PATH="pid"
 PID_FILE="$PID_PATH/$SERVICE_NAME.pid"
 
 TIME_NOW=`date`
@@ -31,9 +32,9 @@ start() {
     fi
     if [ ! -f $PID_FILE ]; then
         echo -e "\n[$TIME_NOW] starting $SERVICE_NAME" >> $LOG_FILE
-        echo "running command: nohup $JAVA_BIN $JVM_OPTS -cp "lib/*" $JVM_MAIN_CLASS >> $LOG_FILE 2>&1 &" >> $LOG_FILE
+        echo "running command: nohup $JAVA_BIN $JVM_OPTS -cp "$JVM_SERVICE_JAR:lib/*" $JVM_MAIN_CLASS >> $LOG_FILE 2>&1 &" >> $LOG_FILE
 
-        nohup $JAVA_BIN $JVM_OPTS -cp "../lib/*" $JVM_MAIN_CLASS >> $LOG_FILE 2>&1 &
+        nohup $JAVA_BIN $JVM_OPTS -cp "$JVM_SERVICE_JAR:lib/*" $JVM_MAIN_CLASS >> $LOG_FILE 2>&1 &
 
         echo $! > $PID_FILE
         echo "$SERVICE_NAME started"

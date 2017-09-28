@@ -1,6 +1,7 @@
 import argparse
 
 from pdp.artifact.repository import ArtifactHost
+from pdp.library.jar.prerequisitecheck import JarLibrariesPrerequisite
 from pdp.script.jvm.prerequisitecheck import JvmRunScriptPrerequisite
 from pdp.software.jdk.prerequisitecheck import JdkPrerequisite
 
@@ -28,6 +29,9 @@ def get_api_args(argv=None):
     parser.add_argument('-dja', '--deploy_jdk_archive', dest='deploy_jdk_archive', help='deploy jdk archive')
     parser.add_argument('-djd', '--deploy_jdk_dir', dest='deploy_jdk_dir', help='deploy_jdk_dir')
     parser.add_argument('-aja', '--artifact_jdk_archive', dest='artifact_jdk_archive', help='artifact jdk archive')
+
+    parser.add_argument('-djld', '--deploy_jar_lib_dir', dest='deploy_jar_lib_dir', help='deploy jar library dir')
+    parser.add_argument('-ajldf', '--artifact_jar_lib_dep_file', dest='artifact_jar_lib_dep_file', help='artifact jar library dependency file')
 
     args = parser.parse_args(argv)
 
@@ -81,6 +85,10 @@ def __debug_api_args(args):
     print('deploy_jdk_archive: ' + __debug_option(args.deploy_jdk_archive))
     print('deploy_jdk_dir: ' + __debug_option(args.deploy_jdk_dir))
     print('artifact_jdk_archive: ' + __debug_option(args.artifact_jdk_archive))
+    print('')
+    print('DEPENDENT JAR LIBRARIES OPTIONS')
+    print('deploy_jar_lib_dir: ' + __debug_option(args.deploy_jar_lib_dir))
+    print('artifact_jar_lib_dep_file: ' + __debug_option(args.artifact_jar_lib_dep_file))
 
 
 def __debug_option(option):
@@ -101,4 +109,20 @@ def jdk_prerequisite_check():
     prerequisite = JdkPrerequisite(args.deploy_host_user, args.deploy_host, args.private_key_file,
                                    artifact_repo,
                                    jdk_options)
+    prerequisite.check()
+
+
+def dependent_jar_libraries_check():
+    args = get_api_args()
+
+    artifact_repo = ArtifactHost(args.artifact_host_user, args.artifact_host, args.private_key_file)
+
+    jar_libraries_options = {
+        'deploy_jar_lib_dir': args.deploy_jar_lib_dir,
+        'artifact_jar_lib_dep_file': args.artifact_jar_lib_dep_file
+    }
+
+    prerequisite = JarLibrariesPrerequisite(args.deploy_host_user, args.deploy_host, args.private_key_file,
+                                            artifact_repo,
+                                            jar_libraries_options)
     prerequisite.check()
