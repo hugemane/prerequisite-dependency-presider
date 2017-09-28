@@ -31,7 +31,7 @@ start() {
     fi
     if [ ! -f $PID_FILE ]; then
         echo -e "\n[$TIME_NOW] starting $SERVICE_NAME" >> $LOG_FILE
-        echo "running command: nohup $JAVA_BIN $JVM_OPTS -cp "../lib/*" $JVM_MAIN_CLASS >> $LOG_FILE 2>&1 &" >> $LOG_FILE
+        echo "running command: nohup $JAVA_BIN $JVM_OPTS -cp "lib/*" $JVM_MAIN_CLASS >> $LOG_FILE 2>&1 &" >> $LOG_FILE
 
         nohup $JAVA_BIN $JVM_OPTS -cp "../lib/*" $JVM_MAIN_CLASS >> $LOG_FILE 2>&1 &
 

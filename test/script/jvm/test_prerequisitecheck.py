@@ -4,7 +4,7 @@ from pdp.artifact.repository import ArtifactHost
 from pdp.script.jvm.prerequisitecheck import JvmRunScriptPrerequisite, JvmRunScriptPrerequisiteException
 
 """
-this is test should be done manually
+this is test and should be run manually
 """
 
 

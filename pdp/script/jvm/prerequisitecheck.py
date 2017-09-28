@@ -37,10 +37,14 @@ class JvmRunScriptPrerequisite:
         script_template.replace_with_values('java_home', self.options)
         script_template.replace_with_values('jvm_max_memory', self.options)
         script_template.replace_with_values('java_main_class', self.options)
+        script_template.replace_with_values('jvm_service_jar', self.options)
 
         jvm_script_content = script_template.contents()
 
         self.deploy_ssh.push_file_contents(self.deploy_run_script, jvm_script_content, make_executable=True)
+
+        # linux ensure no ^M chars in script
+        self.deploy_ssh.execute_remote_command("sed -i -e 's/\r$//' " + self.deploy_run_script)
 
 
 class JvmRunScriptPrerequisiteException(Exception):

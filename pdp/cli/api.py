@@ -2,6 +2,7 @@ import argparse
 
 from pdp.artifact.repository import ArtifactHost
 from pdp.script.jvm.prerequisitecheck import JvmRunScriptPrerequisite
+from pdp.software.jdk.prerequisitecheck import JdkPrerequisite
 
 
 def get_api_args(argv=None):
@@ -22,6 +23,11 @@ def get_api_args(argv=None):
     parser.add_argument('-jjh', '--jvm-java-home', dest='jvm_java_home', help='jvm java home')
     parser.add_argument('-jmm', '--jvm-max-memory', dest='jvm_max_memory', help='jvm max memory')
     parser.add_argument('-jmc', '--jvm-main-class', dest='jvm_main_class', help='jvm main class')
+    parser.add_argument('-jsj', '--jvm_service_jar', dest='jvm_service_jar', help='jvm service jar')
+
+    parser.add_argument('-dja', '--deploy_jdk_archive', dest='deploy_jdk_archive', help='deploy jdk archive')
+    parser.add_argument('-djd', '--deploy_jdk_dir', dest='deploy_jdk_dir', help='deploy_jdk_dir')
+    parser.add_argument('-aja', '--artifact_jdk_archive', dest='artifact_jdk_archive', help='artifact jdk archive')
 
     args = parser.parse_args(argv)
 
@@ -41,7 +47,8 @@ def jvm_run_script_prerequisite_check():
         'service_name': args.jvm_service_name,
         'java_home': args.jvm_java_home,
         'jvm_max_memory': args.jvm_max_memory,
-        'java_main_class': args.jvm_main_class
+        'java_main_class': args.jvm_main_class,
+        'jvm_service_jar': args.jvm_service_jar
     }
 
     prerequisite = JvmRunScriptPrerequisite(args.deploy_host_user, args.deploy_host, args.private_key_file,
@@ -68,7 +75,30 @@ def __debug_api_args(args):
     print('jvm_java_home: ' + __debug_option(args.jvm_java_home))
     print('jvm_max_memory: ' + __debug_option(args.jvm_max_memory))
     print('jvm_main_class: ' + __debug_option(args.jvm_main_class))
+    print('jvm_service_jar: ' + __debug_option(args.jvm_service_jar))
+    print('')
+    print('JDK SOFTWARE OPTIONS')
+    print('deploy_jdk_archive: ' + __debug_option(args.deploy_jdk_archive))
+    print('deploy_jdk_dir: ' + __debug_option(args.deploy_jdk_dir))
+    print('artifact_jdk_archive: ' + __debug_option(args.artifact_jdk_archive))
 
 
 def __debug_option(option):
     return '!! NOT SET !!' if option is None else option
+
+
+def jdk_prerequisite_check():
+    args = get_api_args()
+
+    artifact_repo = ArtifactHost(args.artifact_host_user, args.artifact_host, args.private_key_file)
+
+    jdk_options = {
+        'deploy_jdk_archive': args.deploy_jdk_archive,
+        'deploy_jdk_dir': args.deploy_jdk_dir,
+        'artifact_jdk_archive': args.artifact_jdk_archive
+    }
+
+    prerequisite = JdkPrerequisite(args.deploy_host_user, args.deploy_host, args.private_key_file,
+                                   artifact_repo,
+                                   jdk_options)
+    prerequisite.check()
