@@ -1,3 +1,4 @@
+from pathlib import Path
 from pdp.utility.ssh import SSH
 
 
@@ -49,7 +50,16 @@ class JarLibrariesPrerequisite:
         dep_jar_file_lines = dep_jar_file_contents_cleaned.split('\n')
 
         for dep_jar_line in dep_jar_file_lines:
-            yield dep_jar_line.split(',')
+            values = dep_jar_line.split(',')
+            artifact_file = values[0]
+            artifact_full_path = self.homeize_file_path(values[1])
+            yield [artifact_file, artifact_full_path]
+
+    def homeize_file_path(self, file_path):
+        if file_path.find("~/") == -1:
+            return file_path
+        home = str(Path.home())
+        return home + file_path[1:]
 
     def deploy_dependent_jar_library(self, dependent_jar_lib):
         dependent_jar_lib_file = dependent_jar_lib[0]

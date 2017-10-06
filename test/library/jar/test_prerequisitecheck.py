@@ -49,6 +49,29 @@ class TestJarLibrariesPrerequisite(unittest.TestCase):
         self.assertEqual(last_dep_library_jar[0], 'scalaj-http_2.12-2.3.0.jar')
         self.assertEqual(last_dep_library_jar[1], '/home/hugemane/.ivy2/cache/org.scalaj/scalaj-http_2.12/jars/scalaj-http_2.12-2.3.0.jar')
 
+    def test_generate_artifact_jar_library_dependency_file_jars_as_iterable_jar_dependencies_with_full_path(self):
+        artifact_host = ArtifactHost('artifact', 'artifact.lxd')
+        options = {
+            'deploy_jar_lib_dir': '--some-remote-deployment-lib-dir--',
+            'artifact_jar_lib_dep_file': '--some-artifact-jar-lib-dep-file--'
+        }
+        prerequisite = JarLibrariesPrerequisite('--deploy-user--', '--deploy-host--',
+                                                '--your-private-key', artifact_host, options)
+
+        file = File('../../test-resources/local-home-prerequisite-libs_2.12.txt')
+        dep_jar_file_contents = file.read()
+
+        lib_dependency_jars = prerequisite.generate_artifact_jar_library_dependencies(dep_jar_file_contents)
+
+        top_dep_library_jar = next(lib_dependency_jars)
+        last_dep_library_jar = list(lib_dependency_jars)[-1]
+
+        self.assertEqual(top_dep_library_jar[0], 'scala-library-2.12.2.jar')
+        self.assertEqual(top_dep_library_jar[1], '/home/hugemane/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.2.jar')
+
+        self.assertEqual(last_dep_library_jar[0], 'scalaj-http_2.12-2.3.0.jar')
+        self.assertEqual(last_dep_library_jar[1], '/home/hugemane/.ivy2/cache/org.scalaj/scalaj-http_2.12/jars/scalaj-http_2.12-2.3.0.jar')
+
     """
     this is test and should be run manually
     """
