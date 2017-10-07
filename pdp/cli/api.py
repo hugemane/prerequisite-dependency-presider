@@ -32,6 +32,7 @@ def get_api_args(argv=None):
 
     parser.add_argument('-djld', '--deploy_jar_lib_dir', dest='deploy_jar_lib_dir', help='deploy jar library dir')
     parser.add_argument('-ajldf', '--artifact_jar_lib_dep_file', dest='artifact_jar_lib_dep_file', help='artifact jar library dependency file')
+    parser.add_argument('-fdo', '--force_deploy_organisation', dest='force_deploy_organisation', help='force deploy organisation depdendences')
 
     args = parser.parse_args(argv)
 
@@ -89,6 +90,7 @@ def __debug_api_args(args):
     print('DEPENDENT JAR LIBRARIES OPTIONS')
     print('deploy_jar_lib_dir: ' + __debug_option(args.deploy_jar_lib_dir))
     print('artifact_jar_lib_dep_file: ' + __debug_option(args.artifact_jar_lib_dep_file))
+    print('force_deploy_organisation: ' + __debug_option(args.force_deploy_organisation))
 
 
 def __debug_option(option):
@@ -119,7 +121,8 @@ def dependent_jar_libraries_check():
 
     jar_libraries_options = {
         'deploy_jar_lib_dir': args.deploy_jar_lib_dir,
-        'artifact_jar_lib_dep_file': args.artifact_jar_lib_dep_file
+        'artifact_jar_lib_dep_file': args.artifact_jar_lib_dep_file,
+        'force_deploy_organisation': args.force_deploy_organisation,
     }
 
     prerequisite = JarLibrariesPrerequisite(args.deploy_host_user, args.deploy_host, args.private_key_file,

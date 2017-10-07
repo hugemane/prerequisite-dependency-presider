@@ -1,3 +1,4 @@
+from pdp.utility.file import File
 from pdp.utility.ssh import SSH
 
 
@@ -22,3 +23,16 @@ class ArtifactHost:
         ssh.disconnect()
         return file_content
 
+    def publish_file(self, local_file_path, artifact_file_path):
+        file = File(local_file_path)
+
+        if file.exists() is False:
+            return
+
+        ssh = SSH(self.user, self.host, self.private_key_file)
+        ssh.connect()
+
+        if ssh.does_file_exist(artifact_file_path) is False:
+            ssh.push_file(local_file_path, artifact_file_path)
+
+        ssh.disconnect()

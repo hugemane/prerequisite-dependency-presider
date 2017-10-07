@@ -1,5 +1,5 @@
 from pathlib import Path
-from pdp.utility.ssh import SSH
+from pdp.utility.ssh import SSH, RemoteHost, SecureRemoteCopy
 
 
 class JarLibrariesPrerequisite:
@@ -16,8 +16,9 @@ class JarLibrariesPrerequisite:
             print('jar library prerequisite error - missing args')
             raise JarLibraryPrerequisiteException()
 
-        self.deploy_jar_lib_dir = self.options['deploy_jar_lib_dir']
-        self.artifact_jar_lib_dep_file = self.options['artifact_jar_lib_dep_file']
+        self.deploy_jar_lib_dir = self.options.get('deploy_jar_lib_dir')
+        self.artifact_jar_lib_dep_file = self.options.get('artifact_jar_lib_dep_file')
+        self.force_deploy_organisation = self.options.get('force_deploy_organisation')
 
     def check(self):
         self.deploy_ssh = SSH(self.user, self.host, key_file=self.pkey_file)
@@ -27,16 +28,26 @@ class JarLibrariesPrerequisite:
 
     def deploy_dependent_library_jars(self):
         self.create_jar_dependency_library_dir()
-        self.deploy_artifact_dependent_jar_libraries()
+        dependent_jar_libraries = list(self.artifact_dependent_jar_libraries())
+        self.publish_jar_libraries_to_artifact_host(dependent_jar_libraries)
+        self.deploy_artifact_dependent_jar_libraries(dependent_jar_libraries)
 
     def create_jar_dependency_library_dir(self):
         if self.deploy_ssh.does_file_exist(self.deploy_jar_lib_dir) is False:
             self.deploy_ssh.execute_remote_command('mkdir -p ' + self.deploy_jar_lib_dir)
 
-    def deploy_artifact_dependent_jar_libraries(self):
-        dependent_jar_libraries = self.artifact_dependent_jar_libraries()
+    def publish_jar_libraries_to_artifact_host(self, dependent_jar_libraries):
         for dependent_jar_library in dependent_jar_libraries:
-            self.deploy_dependent_jar_library(dependent_jar_library)
+            self.publish_dependent_jar_library_to_artifact_host(dependent_jar_library)
+
+    def publish_dependent_jar_library_to_artifact_host(self, dependent_jar_lib):
+        source_jar_path = dependent_jar_lib[1]
+        artifact_jar_path = dependent_jar_lib[2]
+        self.artifact_host.publish_file(source_jar_path, artifact_jar_path)
+
+    def deploy_artifact_dependent_jar_libraries(self, dependent_jar_libraries):
+        for dependent_jar_library in dependent_jar_libraries:
+            self.deploy_dependent_jar_library_from_artifact_host(dependent_jar_library)
 
     def artifact_dependent_jar_libraries(self):
         pulled_artifact_file_contents = self.artifact_host.get_artifact_file_content(self.artifact_jar_lib_dep_file)
@@ -50,10 +61,12 @@ class JarLibrariesPrerequisite:
         dep_jar_file_lines = dep_jar_file_contents_cleaned.split('\n')
 
         for dep_jar_line in dep_jar_file_lines:
-            values = dep_jar_line.split(',')
-            artifact_file = values[0]
-            artifact_full_path = self.homeize_file_path(values[1])
-            yield [artifact_file, artifact_full_path]
+            if len(dep_jar_line.strip()) > 0:
+                values = dep_jar_line.split(',')
+                artifact_file = values[0]
+                artifact_source_path = self.homeize_file_path(values[1])
+                artifact_file_path = values[2]
+                yield [artifact_file, artifact_source_path, artifact_file_path]
 
     def homeize_file_path(self, file_path):
         if file_path.find("~/") == -1:
@@ -61,20 +74,28 @@ class JarLibrariesPrerequisite:
         home = str(Path.home())
         return home + file_path[1:]
 
-    def deploy_dependent_jar_library(self, dependent_jar_lib):
+    def deploy_dependent_jar_library_from_artifact_host(self, dependent_jar_lib):
         dependent_jar_lib_file = dependent_jar_lib[0]
-        artifact_dependent_jar_path = dependent_jar_lib[1]
+        artifact_jar_path = dependent_jar_lib[2]
         deploy_dependent_jar_path = "{0}/{1}".format(self.deploy_jar_lib_dir, dependent_jar_lib_file)
 
+        # always deploy artifacts from organisation (if specified)
+        if self.force_deploy_organisation is not None and artifact_jar_path.find(self.force_deploy_organisation) >= 0:
+            self.remote_deploy_dependent_jar_library(artifact_jar_path, deploy_dependent_jar_path)
+
         if self.is_jar_deployed(deploy_dependent_jar_path) is False:
-            self.remote_deploy_dependent_jar_library(artifact_dependent_jar_path, deploy_dependent_jar_path)
+            self.remote_deploy_dependent_jar_library(artifact_jar_path, deploy_dependent_jar_path)
 
     def is_jar_deployed(self, jar_library_path):
         return self.deploy_ssh.does_file_exist(jar_library_path)
 
-    def remote_deploy_dependent_jar_library(self, dependent_jar, deploy_dependent_jar):
-        # deploy from local machine -> remote machine
-        self.deploy_ssh.push_file(dependent_jar, deploy_dependent_jar)
+    def remote_deploy_dependent_jar_library(self, artifact_jar_path, deploy_jar_path):
+        # deploy from artifact machine -> remote machine (using same key i.e. host must be able to access both)
+        artifact_remote_host = RemoteHost(self.artifact_host.user, self.artifact_host.host)
+        deploy_remote_host = RemoteHost(self.user, self.host)
+
+        remote_copier = SecureRemoteCopy(artifact_remote_host, deploy_remote_host, self.pkey_file)
+        remote_copier.copy_between_hosts(artifact_jar_path, deploy_jar_path)
 
 
 class JarLibraryPrerequisiteException(Exception):

@@ -1,44 +1,20 @@
-scala-library-2.12.2.jar, /home/hugemane/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.2.jar
-worktug-service-core_2.12-0.0.1-SNAPSHOT.jar, /home/hugemane/.ivy2/cache/com.worktug/worktug-service-core_2.12/jars/worktug-service-core_2.12-0.0.1-SNAPSHOT.jar
-config-1.3.1.jar, /home/hugemane/.ivy2/cache/com.typesafe/config/bundles/config-1.3.1.jar
-joda-time-2.9.7.jar, /home/hugemane/.ivy2/cache/joda-time/joda-time/jars/joda-time-2.9.7.jar
-mongo-scala-driver_2.12-2.1.0.jar, /home/hugemane/.ivy2/cache/org.mongodb.scala/mongo-scala-driver_2.12/jars/mongo-scala-driver_2.12-2.1.0.jar
-mongo-scala-bson_2.12-2.1.0.jar, /home/hugemane/.ivy2/cache/org.mongodb.scala/mongo-scala-bson_2.12/jars/mongo-scala-bson_2.12-2.1.0.jar
-mongodb-driver-async-3.4.2.jar, /home/hugemane/.ivy2/cache/org.mongodb/mongodb-driver-async/jars/mongodb-driver-async-3.4.2.jar
-bson-3.4.2.jar, /home/hugemane/.ivy2/cache/org.mongodb/bson/jars/bson-3.4.2.jar
-mongodb-driver-core-3.4.2.jar, /home/hugemane/.ivy2/cache/org.mongodb/mongodb-driver-core/jars/mongodb-driver-core-3.4.2.jar
-scala-reflect-2.12.2.jar, /home/hugemane/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.2.jar
-redisclient_2.12-3.4.jar, /home/hugemane/.ivy2/cache/net.debasishg/redisclient_2.12/jars/redisclient_2.12-3.4.jar
-commons-pool-1.6.jar, /home/hugemane/.ivy2/cache/commons-pool/commons-pool/jars/commons-pool-1.6.jar
-slf4j-api-1.7.2.jar, /home/hugemane/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.2.jar
-akka-actor_2.12-2.5.4.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-actor_2.12/jars/akka-actor_2.12-2.5.4.jar
-scala-java8-compat_2.12-0.8.0.jar, /home/hugemane/.ivy2/cache/org.scala-lang.modules/scala-java8-compat_2.12/bundles/scala-java8-compat_2.12-0.8.0.jar
-akka-stream_2.12-2.5.4.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-stream_2.12/jars/akka-stream_2.12-2.5.4.jar
-reactive-streams-1.0.1.jar, /home/hugemane/.ivy2/cache/org.reactivestreams/reactive-streams/jars/reactive-streams-1.0.1.jar
-ssl-config-core_2.12-0.2.1.jar, /home/hugemane/.ivy2/cache/com.typesafe/ssl-config-core_2.12/bundles/ssl-config-core_2.12-0.2.1.jar
-scala-parser-combinators_2.12-1.0.4.jar, /home/hugemane/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.12/bundles/scala-parser-combinators_2.12-1.0.4.jar
-akka-remote_2.12-2.5.4.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-remote_2.12/jars/akka-remote_2.12-2.5.4.jar
-akka-protobuf_2.12-2.5.4.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-protobuf_2.12/jars/akka-protobuf_2.12-2.5.4.jar
-netty-3.10.6.Final.jar, /home/hugemane/.ivy2/cache/io.netty/netty/bundles/netty-3.10.6.Final.jar
-aeron-driver-1.2.5.jar, /home/hugemane/.ivy2/cache/io.aeron/aeron-driver/jars/aeron-driver-1.2.5.jar
-aeron-client-1.2.5.jar, /home/hugemane/.ivy2/cache/io.aeron/aeron-client/jars/aeron-client-1.2.5.jar
-agrona-0.9.5.jar, /home/hugemane/.ivy2/cache/org.agrona/agrona/jars/agrona-0.9.5.jar
-akka-http_2.12-10.0.9.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-http_2.12/jars/akka-http_2.12-10.0.9.jar
-akka-http-core_2.12-10.0.9.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-http-core_2.12/jars/akka-http-core_2.12-10.0.9.jar
-akka-parsing_2.12-10.0.9.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-parsing_2.12/jars/akka-parsing_2.12-10.0.9.jar
-akka-http-xml_2.12-10.0.9.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-http-xml_2.12/jars/akka-http-xml_2.12-10.0.9.jar
-scala-xml_2.12-1.0.6.jar, /home/hugemane/.ivy2/cache/org.scala-lang.modules/scala-xml_2.12/bundles/scala-xml_2.12-1.0.6.jar
-circe-core_2.12-0.7.1.jar, /home/hugemane/.ivy2/cache/io.circe/circe-core_2.12/jars/circe-core_2.12-0.7.1.jar
-circe-numbers_2.12-0.7.1.jar, /home/hugemane/.ivy2/cache/io.circe/circe-numbers_2.12/jars/circe-numbers_2.12-0.7.1.jar
-cats-core_2.12-0.9.0.jar, /home/hugemane/.ivy2/cache/org.typelevel/cats-core_2.12/jars/cats-core_2.12-0.9.0.jar
-cats-macros_2.12-0.9.0.jar, /home/hugemane/.ivy2/cache/org.typelevel/cats-macros_2.12/jars/cats-macros_2.12-0.9.0.jar
-simulacrum_2.12-0.10.0.jar, /home/hugemane/.ivy2/cache/com.github.mpilquist/simulacrum_2.12/jars/simulacrum_2.12-0.10.0.jar
-macro-compat_2.12-1.1.1.jar, /home/hugemane/.ivy2/cache/org.typelevel/macro-compat_2.12/jars/macro-compat_2.12-1.1.1.jar
-machinist_2.12-0.6.1.jar, /home/hugemane/.ivy2/cache/org.typelevel/machinist_2.12/jars/machinist_2.12-0.6.1.jar
-cats-kernel_2.12-0.9.0.jar, /home/hugemane/.ivy2/cache/org.typelevel/cats-kernel_2.12/jars/cats-kernel_2.12-0.9.0.jar
-circe-generic_2.12-0.7.1.jar, /home/hugemane/.ivy2/cache/io.circe/circe-generic_2.12/jars/circe-generic_2.12-0.7.1.jar
-shapeless_2.12-2.3.2.jar, /home/hugemane/.ivy2/cache/com.chuusai/shapeless_2.12/bundles/shapeless_2.12-2.3.2.jar
-circe-parser_2.12-0.7.1.jar, /home/hugemane/.ivy2/cache/io.circe/circe-parser_2.12/jars/circe-parser_2.12-0.7.1.jar
-circe-jawn_2.12-0.7.1.jar, /home/hugemane/.ivy2/cache/io.circe/circe-jawn_2.12/jars/circe-jawn_2.12-0.7.1.jar
-jawn-parser_2.12-0.10.4.jar, /home/hugemane/.ivy2/cache/org.spire-math/jawn-parser_2.12/jars/jawn-parser_2.12-0.10.4.jar
-scalaj-http_2.12-2.3.0.jar, /home/hugemane/.ivy2/cache/org.scalaj/scalaj-http_2.12/jars/scalaj-http_2.12-2.3.0.jar
+scala-library-2.12.2.jar, /home/hugemane/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.2.jar, /home/artifact/repo/lib/org.scala-lang/scala-library/jars/scala-library-2.12.2.jar
+bookracker-service-core_2.12.jar, /home/hugemane/.ivy2/cache/com.bookracker/bookracker-service-core_2.12/jars/bookracker-service-core_2.12-0.0.1-SNAPSHOT.jar, /home/artifact/repo/artifact/com.bookracker/bookracker-service-core_2.12/0.0.1-SNAPSHOT/jars/bookracker-service-core_2.12.jar
+config-1.3.1.jar, /home/hugemane/.ivy2/cache/com.typesafe/config/bundles/config-1.3.1.jar, /home/artifact/repo/lib/com.typesafe/config/bundles/config-1.3.1.jar
+joda-time-2.9.7.jar, /home/hugemane/.ivy2/cache/joda-time/joda-time/jars/joda-time-2.9.7.jar, /home/artifact/repo/lib/joda-time/joda-time/jars/joda-time-2.9.7.jar
+mongo-scala-driver_2.12-2.1.0.jar, /home/hugemane/.ivy2/cache/org.mongodb.scala/mongo-scala-driver_2.12/jars/mongo-scala-driver_2.12-2.1.0.jar, /home/artifact/repo/lib/org.mongodb.scala/mongo-scala-driver_2.12/jars/mongo-scala-driver_2.12-2.1.0.jar
+mongo-scala-bson_2.12-2.1.0.jar, /home/hugemane/.ivy2/cache/org.mongodb.scala/mongo-scala-bson_2.12/jars/mongo-scala-bson_2.12-2.1.0.jar, /home/artifact/repo/lib/org.mongodb.scala/mongo-scala-bson_2.12/jars/mongo-scala-bson_2.12-2.1.0.jar
+mongodb-driver-async-3.4.2.jar, /home/hugemane/.ivy2/cache/org.mongodb/mongodb-driver-async/jars/mongodb-driver-async-3.4.2.jar, /home/artifact/repo/lib/org.mongodb/mongodb-driver-async/jars/mongodb-driver-async-3.4.2.jar
+bson-3.4.2.jar, /home/hugemane/.ivy2/cache/org.mongodb/bson/jars/bson-3.4.2.jar, /home/artifact/repo/lib/org.mongodb/bson/jars/bson-3.4.2.jar
+mongodb-driver-core-3.4.2.jar, /home/hugemane/.ivy2/cache/org.mongodb/mongodb-driver-core/jars/mongodb-driver-core-3.4.2.jar, /home/artifact/repo/lib/org.mongodb/mongodb-driver-core/jars/mongodb-driver-core-3.4.2.jar
+scala-reflect-2.12.2.jar, /home/hugemane/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.2.jar, /home/artifact/repo/lib/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.2.jar
+redisclient_2.12-3.4.jar, /home/hugemane/.ivy2/cache/net.debasishg/redisclient_2.12/jars/redisclient_2.12-3.4.jar, /home/artifact/repo/lib/net.debasishg/redisclient_2.12/jars/redisclient_2.12-3.4.jar
+commons-pool-1.6.jar, /home/hugemane/.ivy2/cache/commons-pool/commons-pool/jars/commons-pool-1.6.jar, /home/artifact/repo/lib/commons-pool/commons-pool/jars/commons-pool-1.6.jar
+slf4j-api-1.7.2.jar, /home/hugemane/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.2.jar, /home/artifact/repo/lib/org.slf4j/slf4j-api/jars/slf4j-api-1.7.2.jar
+akka-actor_2.12-2.5.6.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-actor_2.12/jars/akka-actor_2.12-2.5.6.jar, /home/artifact/repo/lib/com.typesafe.akka/akka-actor_2.12/jars/akka-actor_2.12-2.5.6.jar
+scala-java8-compat_2.12-0.8.0.jar, /home/hugemane/.ivy2/cache/org.scala-lang.modules/scala-java8-compat_2.12/bundles/scala-java8-compat_2.12-0.8.0.jar, /home/artifact/repo/lib/org.scala-lang.modules/scala-java8-compat_2.12/bundles/scala-java8-compat_2.12-0.8.0.jar
+akka-stream_2.12-2.5.6.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-stream_2.12/jars/akka-stream_2.12-2.5.6.jar, /home/artifact/repo/lib/com.typesafe.akka/akka-stream_2.12/jars/akka-stream_2.12-2.5.6.jar
+reactive-streams-1.0.1.jar, /home/hugemane/.ivy2/cache/org.reactivestreams/reactive-streams/jars/reactive-streams-1.0.1.jar, /home/artifact/repo/lib/org.reactivestreams/reactive-streams/jars/reactive-streams-1.0.1.jar
+ssl-config-core_2.12-0.2.2.jar, /home/hugemane/.ivy2/cache/com.typesafe/ssl-config-core_2.12/bundles/ssl-config-core_2.12-0.2.2.jar, /home/artifact/repo/lib/com.typesafe/ssl-config-core_2.12/bundles/ssl-config-core_2.12-0.2.2.jar
+scala-parser-combinators_2.12-1.0.4.jar, /home/hugemane/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.12/bundles/scala-parser-combinators_2.12-1.0.4.jar, /home/artifact/repo/lib/org.scala-lang.modules/scala-parser-combinators_2.12/bundles/scala-parser-combinators_2.12-1.0.4.jar
+akka-remote_2.12-2.5.6.jar, /home/hugemane/.ivy2/cache/com.typesafe.akka/akka-remote_2.12/jars/akka-remote_2.12-2.5.6.jar, /home/artifact/repo/lib/com.typesafe.akka/akka-remote_2.12/jars/akka-remote_2.12-2.5.6.jar
